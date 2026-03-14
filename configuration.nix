@@ -50,7 +50,6 @@
   # Enable zsh system-wide
   programs = {
     zsh.enable = true;
-    poetry.enable = true;
     steam.enable = true;
   };
 
