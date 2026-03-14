@@ -18,10 +18,10 @@
       {
         plugin = catppuccin;
         extraConfig = ''
-          set -g @catppuccin_flavour 'mocha'
-          set -g @catppuccin_window_default_text "#W"
-          set -g @catppuccin_window_current_text "#W"
-          set -g @catppuccin_status_modules_right "session date_time battery"
+          set -g @catppuccin_flavor 'mocha'
+          set -g @catppuccin_window_status_style "slanted"
+          set -g @catppuccin_window_text " #W"
+          set -g @catppuccin_window_current_text " #W"
           set -g @catppuccin_date_time_text "%H:%M %d.%m"
         '';
       }
@@ -32,6 +32,12 @@
       set -g base-index 1
       setw -g pane-base-index 1
       set -g renumber-windows on
+
+      # Status bar at top so shell doesn't stick to it
+      set -g status-position top
+      set -g status-left ""
+      set -g status-right "#{E:@catppuccin_status_session}#{E:@catppuccin_status_date_time}"
+      set -g status-right-length 100
 
       # Splits
       bind | split-window -h -c "#{pane_current_path}"

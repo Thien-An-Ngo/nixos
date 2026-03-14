@@ -160,28 +160,28 @@
         ", XF86AudioPrev, exec, playerctl previous"
       ];
 
-      # Window rules
-      windowrulev2 = [
+      # Window rules (new block syntax, windowrulev2 is deprecated)
+      windowrule = [
         # Float these apps
-        "float, class:^(pavucontrol)$"
-        "float, class:^(nm-connection-editor)$"
-        "float, class:^(thunar)$, title:^(?!.*Thunar).*$"
+        "float = yes, match:class = ^(pavucontrol)$"
+        "float = yes, match:class = ^(nm-connection-editor)$"
+        "float = yes, match:class = ^(thunar)$, match:title = ^(?!.*Thunar).*$"
 
         # Kitty opacity
-        "opacity 0.92 0.88, class:^(kitty)$"
+        "opacity = 0.92 0.88, match:class = ^(kitty)$"
 
-        # Blur for zen
-        "opacity 0.9 0.85, class:^(zen)$"
+        # Zen browser opacity
+        "opacity = 0.9 0.85, match:class = ^(zen)$"
 
         # Fix for some Electron apps
-        "noinitialfocus, class:^(discord)$"
+        "no_initial_focus = yes, match:class = ^(discord)$"
       ];
 
       # Layer rules
       layerrule = [
-        "blur on, caelestia"
-        "blur on, gtk-layer-shell"
-#        "ignorezero, caelestia"
+        "blur on, match:namespace = caelestia"
+        "blur on, match:namespace = gtk-layer-shell"
+#        "ignorezero = on, match:namespace = caelestia"
       ];
     };
   };

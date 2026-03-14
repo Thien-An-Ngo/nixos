@@ -104,7 +104,30 @@
     Fixed in flake.nix by overriding `app2unit = prev.app2unit` (nixpkgs 1.3.0)
     on the caelestia-shell package directly.
 
-  - Hyprland 0.54+ layerrule blur syntax: `blur` in layerrules now requires an explicit
-    value — use `"blur on, <target>"` not `"blur, <target>"`. The old syntax produces
-    "invalid field blur: missing a value" at startup.
+  - Hyprland 0.54+ layerrule syntax: namespace must be specified as `match:namespace = <value>`.
+    Both bare `"blur, caelestia"` and `"blur on, caelestia"` produce config errors. Correct:
+    ```nix
+    layerrule = [
+      "blur on, match:namespace = caelestia"
+      "blur on, match:namespace = gtk-layer-shell"
+    ];
+    ```
+    Tested live with `hyprctl keyword layerrule "blur on, match:namespace = caelestia"` → ok.
+
+  - Hyprland 0.54+ windowrule syntax: `windowrulev2` is deprecated. New flat syntax:
+    ```nix
+    windowrule = [
+      "float = yes, match:class = ^(pavucontrol)$"
+      "opacity = 0.92 0.88, match:class = ^(kitty)$"
+      "no_initial_focus = yes, match:class = ^(discord)$"
+    ];
+    ```
+    Note: old `noinitialfocus` rule name → `no_initial_focus`. Block syntax (`windowrule { }`)
+    also supported but requires `extraConfig`.
+
+  - Catppuccin tmux plugin v2 API: nixpkgs ships v2.1.3. All v1 options (`@catppuccin_flavour`,
+    `@catppuccin_window_default_text`, `@catppuccin_status_modules_right`) are silently ignored.
+    V2 equivalents: `@catppuccin_flavor`, `@catppuccin_window_text`, and status modules via
+    `status-right = "#{E:@catppuccin_status_session}#{E:@catppuccin_status_date_time}"`.
+    Window style `@catppuccin_window_status_style "slanted"` enables powerline arrows.
 
