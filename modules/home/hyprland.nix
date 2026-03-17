@@ -224,16 +224,16 @@
         dots_size = 0.1;
         dots_spacing = 0.3;
         dots_center = true;
-        outer_color = "rgba(cba6f755)";   # mauve, semi-transparent
-        inner_color = "rgba(31324433)";   # surface0, low alpha
-        font_color = "rgba(cdd6f4ff)";    # text
-        check_color = "rgba(a6e3a1ff)";   # green
-        fail_color = "rgba(f38ba8ff)";    # red
+        outer_color = "rgba(b5293e55)";    # crimson, semi-transparent
+        inner_color = "rgba(1d1c1933)";   # Dragon surface, low alpha
+        font_color = "rgba(c5c9c5ff)";    # Dragon text
+        check_color = "rgba(8a9a7bff)";   # Dragon green
+        fail_color = "rgba(c4746eff)";    # Dragon red
         fail_text = "<i>$FAIL ($ATTEMPTS)</i>";
-        capslock_color = "rgba(fab387ff)"; # peach
+        capslock_color = "rgba(b98d7bff)"; # Dragon peach
         fade_on_empty = true;
         rounding = 10;
-        placeholder_text = ''<span foreground="##6c7086"><i>Password</i></span>'';
+        placeholder_text = ''<span foreground="##737c73"><i>Password</i></span>'';
         font_family = "JetBrainsMono Nerd Font";
         position = "0, 20";
         halign = "center";
@@ -247,7 +247,7 @@
           text = "$TIME";
           font_size = 65;
           font_family = "JetBrainsMono Nerd Font Bold";
-          color = "rgba(cdd6f4ff)";
+          color = "rgba(dcd7baff)";
           position = "0, 300";
           halign = "center";
           valign = "center";
@@ -258,7 +258,7 @@
           text = ''cmd[update:5000] date +"%A, %B %d"'';
           font_size = 17;
           font_family = "JetBrainsMono Nerd Font";
-          color = "rgba(cba6f7ff)";
+          color = "rgba(b5293eff)";   # crimson
           position = "0, 240";
           halign = "center";
           valign = "center";
@@ -269,7 +269,7 @@
           text = " thienan";
           font_size = 20;
           font_family = "JetBrainsMono Nerd Font";
-          color = "rgba(cdd6f4ff)";
+          color = "rgba(dcd7baff)";
           position = "0, 50";
           halign = "center";
           valign = "bottom";
@@ -280,7 +280,7 @@
           text = "cmd[update:250] ~/.config/hypr/hyprlock/check-capslock.sh";
           font_size = 13;
           font_family = "JetBrainsMono Nerd Font";
-          color = "rgba(fab387ff)";
+          color = "rgba(ffa066ff)";
           position = "0, -25";
           halign = "center";
           valign = "center";
@@ -291,7 +291,7 @@
           text = "$LAYOUT";
           font_size = 14;
           font_family = "JetBrainsMono Nerd Font";
-          color = "rgba(a6adc8ff)";
+          color = "rgba(727169ff)";
           position = "-30, 30";
           halign = "right";
           valign = "bottom";

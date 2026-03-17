@@ -1,22 +1,21 @@
 { pkgs, ... }:
 
 {
+  # Catppuccin module disabled — using Kanagawa Dragon
   catppuccin = {
-    enable = true;
-    flavor = "mocha";
-    accent = "mauve";
-    tmux.enable = false;
+    enable = false;
   };
 
-    # GTK theme
+  # GTK theme
   gtk = {
     enable = true;
     theme = {
-      name = "catppuccin-mocha-mauve-standard";
-      package = pkgs.catppuccin-gtk;
+      name = "Kanagawa-Dragon-BL";
+      package = pkgs.kanagawa-gtk-theme;
     };
     iconTheme = {
-      name = "Papirus-Dark";
+      name = "kanagawa-dragon";
+      package = pkgs.kanagawa-icon-theme;
     };
     font = {
       name = "Noto Sans";
@@ -27,7 +26,7 @@
     gtk4.extraConfig.gtk-key-theme-name = "Emacs";
   };
 
-  # Cursor
+  # Cursor — keep catppuccin cursor (no kanagawa cursor exists)
   home.pointerCursor = {
     name = "catppuccin-mocha-mauve-cursor";
     package = pkgs.catppuccin-cursors.mochaMauve;
