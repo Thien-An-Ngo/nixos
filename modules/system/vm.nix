@@ -10,10 +10,7 @@
       package = pkgs.qemu_kvm;
       runAsRoot = true;
       swtpm.enable = true;   # TPM 2.0 for Windows 11
-      ovmf = {
-        enable = true;
-        packages = [ pkgs.OVMFFull.fd ];
-      };
+      # OVMF/UEFI is now bundled with QEMU by default in nixpkgs
     };
   };
 
@@ -37,6 +34,6 @@
     virt-manager
     virt-viewer
     spice-vdagent
-    win-virtio     # VirtIO drivers ISO for Windows guests
+    virtio-win     # VirtIO drivers ISO for Windows guests
   ];
 }

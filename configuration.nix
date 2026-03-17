@@ -12,6 +12,7 @@
     ./modules/system/docker.nix
     ./modules/system/vfio.nix
     ./modules/system/vm.nix
+    ./modules/system/keyd.nix
   ];
 
   boot.kernel.sysctl = {

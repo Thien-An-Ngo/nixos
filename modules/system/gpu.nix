@@ -23,8 +23,8 @@
   # CoreCtrl — GPU/CPU control GUI (fan curves, power profiles, OC)
   programs.corectrl = {
     enable = true;
-    gpuOverclock.enable = true;
   };
+  hardware.amdgpu.overdrive.enable = true;
 
   # Gamemode — auto performance mode when gaming
   programs.gamemode.enable = true;

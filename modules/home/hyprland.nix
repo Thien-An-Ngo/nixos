@@ -18,6 +18,11 @@
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "wl-paste --type text --watch cliphist store"
         "hypridle"
+        # Wallpaper Engine — separate wallpaper per monitor
+        # DP-2: CROWNED City Rain (main, right, 300Hz)
+        "linux-wallpaperengine --screen-root DP-2 3161563267"
+        # DP-4: Cherry Blossom at Night 4K (left, 60Hz)
+        "linux-wallpaperengine --screen-root DP-4 2970670204"
       ];
 
       # Input
@@ -42,11 +47,11 @@
 	rounding = 10;
 	blur = {
           enabled = true;
-          size = 8;
-          passes = 3;
-#          new_optimizations = true;
+          size = 12;
+          passes = 4;
+          noise = "0.02";       # frosted glass texture
+          brightness = 0.85;    # slight depth darkening
           xray = false;
-#          ignore_opacity = true;
 	};
         active_opacity = 1.0;
         inactive_opacity = 0.85;
@@ -172,8 +177,8 @@
         "float = yes, match:class = ^(nm-connection-editor)$"
         "float = yes, match:class = ^(thunar)$, match:title = ^(?!.*Thunar).*$"
 
-        # Kitty opacity
-        "opacity = 1.0 0.95, match:class = ^(kitty)$"
+        # Kitty — let hyprland blur compound with kitty's own background_opacity
+        "opacity = 0.96 0.88, match:class = ^(kitty)$"
 
         # Zen browser opacity
         "opacity = 0.9 0.85, match:class = ^(zen)$"
@@ -192,7 +197,7 @@
     };
   };
 
-  # Hyprlock
+  # Hyprlock — adapted from end-4/dots-hyprland, Catppuccin Mocha
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -204,67 +209,105 @@
 
       background = [{
         path = "screenshot";
-        color = "rgb(1e1e2e)";
-        blur_passes = 4;
-        blur_size = 7;
-        brightness = 0.55;
+        blur_passes = 3;
+        blur_size = 8;
+        brightness = 0.65;
         contrast = 0.9;
-        vibrancy = 0.15;
+        vibrancy = 0.1;
+        vibrancy_darkness = 0.3;
       }];
 
       input-field = [{
-        size = "280, 56";
-        position = "0, -120";
+        monitor = "";
+        size = "250, 50";
+        outline_thickness = 2;
+        dots_size = 0.1;
+        dots_spacing = 0.3;
+        dots_center = true;
+        outer_color = "rgba(cba6f755)";   # mauve, semi-transparent
+        inner_color = "rgba(31324433)";   # surface0, low alpha
+        font_color = "rgba(cdd6f4ff)";    # text
+        check_color = "rgba(a6e3a1ff)";   # green
+        fail_color = "rgba(f38ba8ff)";    # red
+        fail_text = "<i>$FAIL ($ATTEMPTS)</i>";
+        capslock_color = "rgba(fab387ff)"; # peach
+        fade_on_empty = true;
+        rounding = 10;
+        placeholder_text = ''<span foreground="##6c7086"><i>Password</i></span>'';
+        font_family = "JetBrainsMono Nerd Font";
+        position = "0, 20";
         halign = "center";
         valign = "center";
-        outline-thickness = 3;
-        placeholder-text = ''<span foreground="##a6adc8"><i> Enter password...</i></span>'';
-        hide-input = false;
-        rounding = 12;
-        outer_color = "rgb(cba6f7)";
-        inner_color = "rgb(181825)";
-        font_color = "rgb(cdd6f4)";
-        check_color = "rgb(a6e3a1)";
-        fail_color = "rgb(f38ba8)";
-        fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-        capslock_color = "rgb(fab387)";
-        fade_on_empty = true;
-        font_family = "JetBrainsMono Nerd Font";
       }];
 
       label = [
         # Clock
         {
-          text = ''cmd[update:1000] echo "$(date +"%H:%M")"'';
-          font_size = 96;
+          monitor = "";
+          text = "$TIME";
+          font_size = 65;
           font_family = "JetBrainsMono Nerd Font Bold";
           color = "rgba(cdd6f4ff)";
-          position = "0, 60";
+          position = "0, 300";
           halign = "center";
           valign = "center";
         }
         # Date
         {
-          text = ''cmd[update:60000] echo "$(date +"%A, %B %d")"'';
-          font_size = 20;
+          monitor = "";
+          text = ''cmd[update:5000] date +"%A, %B %d"'';
+          font_size = 17;
           font_family = "JetBrainsMono Nerd Font";
           color = "rgba(cba6f7ff)";
-          position = "0, -20";
+          position = "0, 240";
           halign = "center";
           valign = "center";
         }
-        # Greeting
+        # User
         {
-          text = "  thienan";
-          font_size = 16;
+          monitor = "";
+          text = " thienan";
+          font_size = 20;
           font_family = "JetBrainsMono Nerd Font";
-          color = "rgba(a6adc8ff)";
-          position = "0, -80";
+          color = "rgba(cdd6f4ff)";
+          position = "0, 50";
+          halign = "center";
+          valign = "bottom";
+        }
+        # Caps lock warning
+        {
+          monitor = "";
+          text = "cmd[update:250] ~/.config/hypr/hyprlock/check-capslock.sh";
+          font_size = 13;
+          font_family = "JetBrainsMono Nerd Font";
+          color = "rgba(fab387ff)";
+          position = "0, -25";
           halign = "center";
           valign = "center";
+        }
+        # Keyboard layout
+        {
+          monitor = "";
+          text = "$LAYOUT";
+          font_size = 14;
+          font_family = "JetBrainsMono Nerd Font";
+          color = "rgba(a6adc8ff)";
+          position = "-30, 30";
+          halign = "right";
+          valign = "bottom";
         }
       ];
     };
+  };
+
+  # Hyprlock helper scripts
+  home.file.".config/hypr/hyprlock/check-capslock.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      CAPS=$(hyprctl devices | grep -B 6 "main: yes" | grep "capsLock" | head -1 | awk '{print $2}')
+      [ "$CAPS" = "yes" ] && echo "󰪛 Caps Lock" || echo ""
+    '';
   };
 
   # Hypridle

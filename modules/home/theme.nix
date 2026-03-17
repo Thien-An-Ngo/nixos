@@ -23,6 +23,8 @@
       size = 11;
       package = pkgs.noto-fonts;
     };
+    gtk3.extraConfig.gtk-key-theme-name = "Emacs";
+    gtk4.extraConfig.gtk-key-theme-name = "Emacs";
   };
 
   # Cursor

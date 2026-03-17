@@ -71,6 +71,43 @@
     spicetify-cli
     ani-cli
 
+    # System info
+    fastfetch
+    macchina
+
+    # Fun terminal toys
+    nyancat
+    cbonsai
+    asciiquarium
+    mapscii
+    aalib        # includes aafire — run: aafire
+    astroterm
+
+    # TUI utilities
+    gotop        # graphical activity monitor (gtop equivalent)
+    rmpc         # MPD music client with album art (kitty image protocol)
+    dysk         # disk usage overview
+    pastel       # terminal color tool
+
+    # Audio visualizers
+    cava
+    cavalier
+
+    # Screen recorder
+    kooha
+
+    # Local file sharing
+    localsend
+
+    # Terminal clock
+    peaclock
+
+    # Animated wallpapers via Wallpaper Engine workshop content
+    linux-wallpaperengine
+
+    # System monitor
+    mission-center
+
     # Misc
     libsForQt5.qtstyleplugin-kvantum
     qt6Packages.qtstyleplugin-kvantum

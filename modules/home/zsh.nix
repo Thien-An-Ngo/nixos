@@ -9,11 +9,21 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "fzf" "sudo" "copypath" "dirhistory" ];
+      plugins = [ "git" "fzf" "sudo" "copypath" "dirhistory" "docker" "gh" ];
     };
 
     initContent = ''
       eval "$(zoxide init zsh)"
+      eval "$(atuin init zsh)"
+
+      # Alt+Left/Right — word navigation in terminal (keyd passes these through)
+      bindkey '\e[1;3D' backward-word
+      bindkey '\e[1;3C' forward-word
+
+      # Completions for tools not covered by oh-my-zsh plugins
+      if command -v k9s &>/dev/null; then source <(k9s completion zsh); fi
+      if command -v poetry &>/dev/null; then source <(poetry completions zsh); fi
+      if command -v bun &>/dev/null; then source <(bun completions 2>/dev/null); fi
 
       # Play sound when long commands finish (>45s)
       __cmd_start=0
@@ -71,10 +81,11 @@
         "[](fg:sapphire bg:lavender)"
         "$time"
         "[ ](fg:lavender)"
-        "$cmd_duration"
         "$line_break"
         "$character"
       ];
+
+      right_format = "$cmd_duration";
 
       palette = "catppuccin_mocha";
 
@@ -212,22 +223,21 @@
 
       character = {
         disabled = false;
-        success_symbol = "[❯](bold fg:green)";
-        error_symbol = "[❯](bold fg:red)";
-        vimcmd_symbol = "[❮](bold fg:green)";
-        vimcmd_replace_one_symbol = "[❮](bold fg:lavender)";
-        vimcmd_replace_symbol = "[❮](bold fg:lavender)";
-        vimcmd_visual_symbol = "[❮](bold fg:yellow)";
+        success_symbol = "[➜](bold fg:green)";
+        error_symbol = "[➜](bold fg:red)";
+        vimcmd_symbol = "[←](bold fg:green)";
+        vimcmd_replace_one_symbol = "[←](bold fg:lavender)";
+        vimcmd_replace_symbol = "[←](bold fg:lavender)";
+        vimcmd_visual_symbol = "[←](bold fg:yellow)";
       };
 
       cmd_duration = {
         show_milliseconds = true;
-        format = " in $duration ";
-        style = "bg:lavender";
+        min_time = 0;
+        format = "[ $duration](bold red) ";
         disabled = false;
-        show_notifications = false;
-        min_time_to_notify = 45000;
       };
+
 
       palettes.catppuccin_mocha = {
         rosewater = "#f5e0dc";
@@ -257,6 +267,17 @@
         mantle = "#181825";
         crust = "#11111b";
       };
+    };
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      style = "compact";
+      inline_height = 16;
+      show_preview = true;
+      enter_accept = true;
     };
   };
 }

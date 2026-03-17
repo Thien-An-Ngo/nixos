@@ -12,8 +12,10 @@
 
       window_padding_width = 12;
       hide_window_decorations = "yes";
-      background_opacity = "0.65";
+      background_opacity = "0.78";
       dynamic_background_opacity = "yes";
+      # Request compositor blur through the window background
+      background_blur = 64;
 
       cursor_shape = "beam";
       cursor_blink_interval = "0.75";
@@ -28,5 +30,7 @@
       tab_powerline_style = "slanted";
       active_tab_font_style = "bold";
     };
+
+    # No extra keybinds needed — handled globally by keyd (see modules/system/keyd.nix)
   };
 }

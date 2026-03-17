@@ -33,7 +33,7 @@
     "vfio"
     "vfio_iommu_type1"
     "vfio_pci"
-    "vfio_virqfd"
+    # vfio_virqfd was merged into vfio in kernel 6.2+
   ];
 
   # Reserve hugepages in the kernel
