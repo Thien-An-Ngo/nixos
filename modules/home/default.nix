@@ -14,6 +14,7 @@
     ./zen.nix
     ./nvim.nix
     ./anyrun.nix
+    ./looking-glass.nix
   ];
 
   home = {

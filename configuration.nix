@@ -10,6 +10,8 @@
     ./modules/system/greetd.nix
     ./modules/system/hyprland.nix
     ./modules/system/docker.nix
+    ./modules/system/vfio.nix
+    ./modules/system/vm.nix
   ];
 
   boot.kernel.sysctl = {
