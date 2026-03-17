@@ -17,10 +17,6 @@
     };
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders.override {
-        flavor = "mocha";
-        accent = "mauve";
-      };
     };
     font = {
       name = "Noto Sans";

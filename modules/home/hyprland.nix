@@ -15,9 +15,9 @@
       # Autostart
       exec-once = [
 #        "caelestia shell -d"
-      	"${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-	"wl-paste --type text --watch cliphist store"
-	"hypridle"
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+        "wl-paste --type text --watch cliphist store"
+        "hypridle"
       ];
 
       # Input
@@ -92,7 +92,7 @@
         "$mod, Return, exec, kitty"
         "$mod, Q, killactive"
         "$mod SHIFT, Q, exit"
-        "$mod, Space, exec, anyrun"
+        "$mod, Space, exec, pgrep rofi && pkill rofi || rofi -show drun"
         "$mod SHIFT, Space, togglefloating"
         "$mod, F, fullscreen, 0"
         "$mod, P, pseudo"
@@ -180,6 +180,9 @@
 
         # Fix for some Electron apps
         "no_initial_focus = yes, match:class = ^(discord)$"
+
+        # Close rofi on focus loss
+        "stayfocused = yes, match:class = ^(rofi)$"
       ];
 
       # Layer rules

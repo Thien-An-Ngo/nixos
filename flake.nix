@@ -32,10 +32,6 @@
       url = "github:catppuccin/nix";
     };
 
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, home-manager, caelestia-shell, zen-browser, catppuccin, ... }@inputs:
@@ -50,9 +46,14 @@
           {
             nixpkgs.overlays = [
               (final: prev: {
-                caelestia-shell = (caelestia-shell.packages.${system}.with-cli).override {
+                caelestia-shell = ((caelestia-shell.packages.${system}.with-cli).override {
                   app2unit = prev.app2unit;
-                };
+                }).overrideAttrs (old: {
+                  postInstall = (old.postInstall or "") + ''
+                    sed -i '/Component.onCompleted: active = Qt.binding/{N;N;N;N;N;N;d}' \
+                      $out/share/caelestia-shell/modules/dashboard/Content.qml
+                  '';
+                });
               })
             ];
           }

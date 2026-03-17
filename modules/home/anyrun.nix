@@ -1,79 +1,113 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, ... }:
 
-let
-  system = pkgs.stdenv.hostPlatform.system;
-in {
-  imports = [ inputs.anyrun.homeManagerModules.default ];
-
-  programs.anyrun = {
+{
+  programs.rofi = {
     enable = true;
-    config = {
-      plugins = with inputs.anyrun.packages.${system}; [
-        applications
-        rink
-      ];
-      width.fraction = 0.28;
-      position = "top";
-      verticalOffset.absolute = 180;
-      hidePluginInfo = true;
-      closeOnClick = true;
-      maxEntries = 6;
+    package = pkgs.rofi;
+    plugins = [ pkgs.rofi-calc ];
+    font = "Rubik 14";
+    terminal = "kitty";
+    extraConfig = {
+      modi = "drun,calc";
+      show-icons = true;
+      drun-display-format = "{name}";
+      display-drun = "";
+      icon-theme = "Papirus-Dark";
+      kb-cancel = "Escape";
+      kb-accept-alt = "";
+      kb-row-tab = "";
+      kb-element-next = "";
+      kb-element-prev = "";
+      kb-mode-next = "Tab";
+      kb-mode-previous = "Shift+Tab";
+      click-to-exit = true;
     };
-
-    extraCss = ''
+    theme = lib.mkForce (builtins.toFile "catppuccin-mocha.rasi" ''
       * {
-        font-family: "Rubik", sans-serif;
-        font-size: 15px;
-        transition: 100ms ease;
+        bg:      #1a0a0d;
+        surface: #2d1018;
+        overlay: #4a1c26;
+        text:    #f0d0d5;
+        subtext: #b89098;
+        accent:  #8B1A2A;
+        red:     #C41E3A;
+
+        background-color: transparent;
+        text-color:       @text;
+        font:             "Rubik 14";
       }
 
-      #window {
-        background: alpha(#1e1e2e, 0.92);
-        border: 2px solid #cba6f7;
-        border-radius: 16px;
+      window {
+        background-color: @bg;
+        border:           2px solid;
+        border-color:     @accent;
+        border-radius:    16px;
+        width:            680px;
+        padding:          0;
       }
 
-      #plugin, #main {
-        background: transparent;
+      mainbox {
+        background-color: transparent;
+        children:         [ inputbar, listview ];
+        spacing:          0;
       }
 
-      #entry {
-        background: transparent;
-        color: #cdd6f4;
-        padding: 14px 18px;
-        font-size: 18px;
-        border: none;
-        border-bottom: 1px solid alpha(#cba6f7, 0.25);
-        border-radius: 0;
+      inputbar {
+        background-color: transparent;
+        border-radius:    16px 16px 0 0;
+        padding:          14px 18px;
+        border:           0 0 1px 0;
+        border-color:     @overlay;
+        children:         [ prompt, entry ];
+        spacing:          8px;
       }
 
-      #entry:focus {
-        outline: none;
-        box-shadow: none;
+      prompt {
+        background-color: transparent;
+        text-color:       @accent;
+        vertical-align:   0.5;
       }
 
-      list {
-        padding: 8px;
+      entry {
+        background-color: transparent;
+        text-color:       @text;
+        placeholder:      "Search...";
+        placeholder-color: @subtext;
+        vertical-align:   0.5;
+        font:             "Rubik 18";
       }
 
-      row {
-        border-radius: 10px;
-        padding: 6px 10px;
+      listview {
+        background-color: transparent;
+        padding:          8px;
+        lines:            6;
+        scrollbar:        false;
+        spacing:          2px;
       }
 
-      row:selected, row:hover {
-        background: alpha(#cba6f7, 0.18);
+      element {
+        background-color: transparent;
+        border-radius:    10px;
+        padding:          8px 12px;
+        spacing:          12px;
+        children:         [ element-icon, element-text ];
       }
 
-      .name {
-        color: #cdd6f4;
-        font-size: 15px;
+      element selected {
+        background-color: rgba(139, 26, 42, 0.35);
       }
 
-      .description {
-        color: #a6adc8;
-        font-size: 12px;
+      element-icon {
+        background-color: transparent;
+        size:             24px;
+        vertical-align:   0.5;
       }
-    '';
+
+      element-text {
+        background-color: transparent;
+        text-color:       @text;
+        vertical-align:   0.5;
+      }
+    '');
   };
 }

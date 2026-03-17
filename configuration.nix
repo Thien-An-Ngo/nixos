@@ -41,7 +41,7 @@
   users.users = {
     thienan = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" ];
+      extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" "corectrl" ];
       shell = pkgs.zsh;
       hashedPasswordFile = "/etc/nixos/secrets/thienan-password";
     };
