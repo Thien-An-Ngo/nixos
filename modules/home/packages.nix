@@ -21,6 +21,9 @@
     htop
     btop
 
+    # Calculator
+    libqalculate
+
     # Wayland utilities
     wl-clipboard
     cliphist
@@ -58,7 +61,10 @@
     imv
     pavucontrol
     discord
+    betterdiscordctl
     spotify
+    spicetify-cli
+    ani-cli
 
     # Misc
     libsForQt5.qtstyleplugin-kvantum

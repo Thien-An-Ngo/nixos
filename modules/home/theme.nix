@@ -5,6 +5,7 @@
     enable = true;
     flavor = "mocha";
     accent = "mauve";
+    tmux.enable = false;
   };
 
     # GTK theme
@@ -16,6 +17,10 @@
     };
     iconTheme = {
       name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders.override {
+        flavor = "mocha";
+        accent = "mauve";
+      };
     };
     font = {
       name = "Noto Sans";

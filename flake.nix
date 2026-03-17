@@ -14,6 +14,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    caelestia-cli = {
+      url = "github:caelestia-dots/cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.caelestia-shell.follows = "caelestia-shell";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
@@ -23,7 +29,12 @@
     };
 
     catppuccin = {
-      url = "github:catppuccin/nix";      
+      url = "github:catppuccin/nix";
+    };
+
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

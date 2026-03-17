@@ -1,7 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
-{
-  home.packages = [ pkgs.caelestia-shell ];
+let
+  system = pkgs.stdenv.hostPlatform.system;
+in {
+  home.packages = [
+    pkgs.caelestia-shell
+    inputs.caelestia-cli.packages.${system}.default
+    pkgs.caelestia-shell.passthru.extras
+  ];
 
   home.file."assets/walls/.keep".text = "";
 

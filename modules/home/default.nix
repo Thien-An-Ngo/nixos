@@ -12,6 +12,8 @@
     ./hyprland.nix
     ./caelestia.nix
     ./zen.nix
+    ./nvim.nix
+    ./anyrun.nix
   ];
 
   home = {

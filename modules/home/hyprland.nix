@@ -92,17 +92,22 @@
         "$mod, Return, exec, kitty"
         "$mod, Q, killactive"
         "$mod SHIFT, Q, exit"
-        "$mod, Space, togglefloating"
+        "$mod, Space, exec, anyrun"
+        "$mod SHIFT, Space, togglefloating"
         "$mod, F, fullscreen, 0"
         "$mod, P, pseudo"
         "$mod, J, togglesplit"
 
         # Caelestia
-        "$mod, D, exec, caelestia shell toggle launcher"
+        "$mod, D, exec, caelestia shell drawers toggle launcher"
         "$mod, E, exec, thunar"
         "$mod SHIFT, S, exec, caelestia screenshot"
         "$mod, L, exec, hyprlock"
         "$mod, V, exec, caelestia clipboard"
+
+        # Screenshots
+        ", Print, exec, grim ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png"
+        "SHIFT, Print, exec, grim -g \"$(slurp)\" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png"
 
         # Focus
         "$mod, left, movefocus, l"
@@ -198,34 +203,66 @@
 
       background = [{
         path = "screenshot";
+        color = "rgb(1e1e2e)";
         blur_passes = 4;
         blur_size = 7;
-        brightness = 0.6;
+        brightness = 0.55;
+        contrast = 0.9;
+        vibrancy = 0.15;
       }];
 
       input-field = [{
-        size = "200, 50";
-        position = "0, -80";
+        size = "280, 56";
+        position = "0, -120";
         halign = "center";
         valign = "center";
-        outline-thickness = 2;
-        placeholder-text = "<i>password</i>";
+        outline-thickness = 3;
+        placeholder-text = ''<span foreground="##a6adc8"><i> Enter password...</i></span>'';
         hide-input = false;
-        rounding = 8;
-	outer_color = "rgb(cba6f7)";
-	inner_color = "rgb(1e1e2e)";
-	font_color = "rgb(cdd6f4)";
-	check_color = "rgb(a6e3a1)";
-	fail_color = "rgb(f38ba8)";
+        rounding = 12;
+        outer_color = "rgb(cba6f7)";
+        inner_color = "rgb(181825)";
+        font_color = "rgb(cdd6f4)";
+        check_color = "rgb(a6e3a1)";
+        fail_color = "rgb(f38ba8)";
+        fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+        capslock_color = "rgb(fab387)";
+        fade_on_empty = true;
+        font_family = "JetBrainsMono Nerd Font";
       }];
 
-      label = [{
-        text = ''cmd[update:1000] echo "$(date +"%H:%M")"'';
-        font_size = 72;
-        position = "0, 80";
-        halign = "center";
-        valign = "center";
-      }];
+      label = [
+        # Clock
+        {
+          text = ''cmd[update:1000] echo "$(date +"%H:%M")"'';
+          font_size = 96;
+          font_family = "JetBrainsMono Nerd Font Bold";
+          color = "rgba(cdd6f4ff)";
+          position = "0, 60";
+          halign = "center";
+          valign = "center";
+        }
+        # Date
+        {
+          text = ''cmd[update:60000] echo "$(date +"%A, %B %d")"'';
+          font_size = 20;
+          font_family = "JetBrainsMono Nerd Font";
+          color = "rgba(cba6f7ff)";
+          position = "0, -20";
+          halign = "center";
+          valign = "center";
+        }
+        # Greeting
+        {
+          text = "  thienan";
+          font_size = 16;
+          font_family = "JetBrainsMono Nerd Font";
+          color = "rgba(a6adc8ff)";
+          position = "0, -80";
+          halign = "center";
+          valign = "center";
+        }
+      ];
     };
   };
 

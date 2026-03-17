@@ -23,6 +23,11 @@
       alias grep="rg"
       alias cd="z"
       alias top="btm"
+
+      # NixOS
+      alias rebuild="sudo nixos-rebuild switch --flake /etc/nixos#nixos"
+      alias rebuild-log="sudo nixos-rebuild switch --flake /etc/nixos#nixos 2>&1 | tee /tmp/rebuild.log"
+      alias nixup="nix flake update /etc/nixos && rebuild"
     '';
   };
 
