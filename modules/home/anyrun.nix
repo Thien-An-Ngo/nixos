@@ -1,6 +1,16 @@
 { pkgs, lib, ... }:
 
-{
+let
+  rofiZoxide = pkgs.writeShellScriptBin "rofi-zoxide" ''
+    if [[ -n "$*" ]]; then
+      dir="$*"
+      zoxide add "$dir" 2>/dev/null
+      ${pkgs.thunar}/bin/thunar "$dir" &
+    else
+      ${pkgs.zoxide}/bin/zoxide query -l 2>/dev/null
+    fi
+  '';
+in {
   programs.rofi = {
     enable = true;
     package = pkgs.rofi;
@@ -8,7 +18,7 @@
     font = "Rubik 14";
     terminal = "kitty";
     extraConfig = {
-      modi = "drun,calc";
+      modi = "drun,calc,zoxide:${rofiZoxide}/bin/rofi-zoxide";
       show-icons = true;
       drun-display-format = "{name}";
       display-drun = "";

@@ -173,7 +173,7 @@
         "float = yes, match:class = ^(thunar)$, match:title = ^(?!.*Thunar).*$"
 
         # Kitty opacity
-        "opacity = 0.92 0.88, match:class = ^(kitty)$"
+        "opacity = 1.0 0.95, match:class = ^(kitty)$"
 
         # Zen browser opacity
         "opacity = 0.9 0.85, match:class = ^(zen)$"
@@ -181,8 +181,6 @@
         # Fix for some Electron apps
         "no_initial_focus = yes, match:class = ^(discord)$"
 
-        # Close rofi on focus loss
-        "stayfocused = yes, match:class = ^(rofi)$"
       ];
 
       # Layer rules

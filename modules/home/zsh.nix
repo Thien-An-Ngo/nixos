@@ -15,6 +15,19 @@
     initContent = ''
       eval "$(zoxide init zsh)"
 
+      # Play sound when long commands finish (>45s)
+      __cmd_start=0
+      function _cmd_timer_preexec() { __cmd_start=$SECONDS }
+      function _cmd_timer_precmd() {
+        local elapsed=$(( SECONDS - __cmd_start ))
+        if (( __cmd_start > 0 && elapsed >= 45 )); then
+          paplay /run/current-system/sw/share/sounds/freedesktop/stereo/complete.oga &>/dev/null &
+        fi
+        __cmd_start=0
+      }
+      add-zsh-hook preexec _cmd_timer_preexec
+      add-zsh-hook precmd _cmd_timer_precmd
+
       # Aliases
       alias ls="eza --icons"
       alias ll="eza -la --icons"
@@ -212,7 +225,7 @@
         format = " in $duration ";
         style = "bg:lavender";
         disabled = false;
-        show_notifications = true;
+        show_notifications = false;
         min_time_to_notify = 45000;
       };
 

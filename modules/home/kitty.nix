@@ -12,7 +12,7 @@
 
       window_padding_width = 12;
       hide_window_decorations = "yes";
-      background_opacity = "0.85";
+      background_opacity = "0.65";
       dynamic_background_opacity = "yes";
 
       cursor_shape = "beam";
@@ -21,6 +21,7 @@
       scrollback_lines = 10000;
       enable_audio_bell = "no";
       confirm_os_window_close = 0;
+      notify_on_cmd_finish = "unfocused 45.0 notify";
 
       # Tabs
       tab_bar_style = "powerline";

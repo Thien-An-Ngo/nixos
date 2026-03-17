@@ -35,6 +35,11 @@
     pamixer
     networkmanagerapplet
 
+    # Keychain & secrets
+    bitwarden-desktop
+    bitwarden-cli
+    seahorse
+
     # Dev tools
     claude-code
     docker
