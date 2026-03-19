@@ -28,7 +28,7 @@
       navigate        = true;
       side-by-side    = true;
       line-numbers    = true;
-      syntax-theme    = "Catppuccin-mocha";
+      syntax-theme    = "base16";
       dark            = true;
     };
   };

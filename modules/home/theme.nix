@@ -1,44 +1,25 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
-  # Catppuccin module disabled — using Kanagawa Dragon
-  catppuccin = {
-    enable = false;
-  };
-
-  # GTK theme
   gtk = {
     enable = true;
-    theme = {
-      name = "Kanagawa-Dragon-BL";
-      package = pkgs.kanagawa-gtk-theme;
-    };
-    iconTheme = {
-      name = "kanagawa-dragon";
-      package = pkgs.kanagawa-icon-theme;
-    };
-    font = {
-      name = "Noto Sans";
-      size = 11;
-      package = pkgs.noto-fonts;
-    };
+    # font and theme/iconTheme are owned by stylix
     gtk3.extraConfig.gtk-key-theme-name = "Emacs";
     gtk4.extraConfig.gtk-key-theme-name = "Emacs";
   };
 
-  # Cursor — keep catppuccin cursor (no kanagawa cursor exists)
+  # Set a neutral cursor (stylix doesn't manage cursors directly)
   home.pointerCursor = {
-    name = "catppuccin-mocha-mauve-cursor";
-    package = pkgs.catppuccin-cursors.mochaMauve;
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
     size = 24;
     gtk.enable = true;
     x11.enable = true;
   };
 
-  # Qt theme
   qt = {
     enable = true;
-    platformTheme.name = "kvantum";
-    style.name = "kvantum";
+    platformTheme.name = lib.mkForce "kvantum";
+    # style.name left to stylix — it generates a kvantum theme automatically
   };
 }

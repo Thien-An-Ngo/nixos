@@ -28,13 +28,14 @@
       };
     };
 
-    catppuccin = {
-      url = "github:catppuccin/nix";
+    stylix = {
+      url = "github:danth/stylix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };
 
-  outputs = { self, nixpkgs, home-manager, caelestia-shell, zen-browser, catppuccin, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, caelestia-shell, zen-browser, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
     in {
@@ -43,6 +44,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
+          stylix.nixosModules.stylix
           {
             nixpkgs.overlays = [
               (final: prev: {
@@ -63,6 +65,7 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.sharedModules = [ stylix.homeModules.stylix ];
             home-manager.users.thienan = import ./modules/home/default.nix;
           }
         ];

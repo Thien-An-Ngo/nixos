@@ -197,7 +197,7 @@
     };
   };
 
-  # Hyprlock — adapted from end-4/dots-hyprland, Catppuccin Mocha
+  # Hyprlock — Blood Vow palette
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -224,13 +224,13 @@
         dots_size = 0.1;
         dots_spacing = 0.3;
         dots_center = true;
-        outer_color = "rgba(b5293e55)";    # crimson, semi-transparent
-        inner_color = "rgba(1d1c1933)";   # Dragon surface, low alpha
-        font_color = "rgba(c5c9c5ff)";    # Dragon text
-        check_color = "rgba(8a9a7bff)";   # Dragon green
-        fail_color = "rgba(c4746eff)";    # Dragon red
+        outer_color = "rgba(A8507055)";    # base0E deep rose, semi-transparent
+        inner_color = "rgba(17181933)";   # base00 bg, low alpha
+        font_color = "rgba(C8B8BCff)";    # base05 text
+        check_color = "rgba(7BAABFff)";   # base0B muted blue (success)
+        fail_color = "rgba(A85070ff)";    # base0E deep rose (error/fail)
         fail_text = "<i>$FAIL ($ATTEMPTS)</i>";
-        capslock_color = "rgba(b98d7bff)"; # Dragon peach
+        capslock_color = "rgba(C07840ff)"; # base09 copper
         fade_on_empty = true;
         rounding = 10;
         placeholder_text = ''<span foreground="##737c73"><i>Password</i></span>'';
@@ -247,7 +247,7 @@
           text = "$TIME";
           font_size = 65;
           font_family = "JetBrainsMono Nerd Font Bold";
-          color = "rgba(dcd7baff)";
+          color = "rgba(DCCDd0ff)";   # base06
           position = "0, 300";
           halign = "center";
           valign = "center";
@@ -258,7 +258,7 @@
           text = ''cmd[update:5000] date +"%A, %B %d"'';
           font_size = 17;
           font_family = "JetBrainsMono Nerd Font";
-          color = "rgba(b5293eff)";   # crimson
+          color = "rgba(A85070ff)";   # base0E deep rose
           position = "0, 240";
           halign = "center";
           valign = "center";
@@ -269,7 +269,7 @@
           text = " thienan";
           font_size = 20;
           font_family = "JetBrainsMono Nerd Font";
-          color = "rgba(dcd7baff)";
+          color = "rgba(C8B8BCff)";   # base05
           position = "0, 50";
           halign = "center";
           valign = "bottom";

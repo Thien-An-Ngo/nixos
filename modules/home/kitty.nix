@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   programs.kitty = {
@@ -12,7 +12,7 @@
 
       window_padding_width = 12;
       hide_window_decorations = "yes";
-      background_opacity = "0.78";
+      background_opacity = lib.mkForce "0.78";
       dynamic_background_opacity = "yes";
       # Request compositor blur through the window background
       background_blur = 64;

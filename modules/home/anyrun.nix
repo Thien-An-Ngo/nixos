@@ -32,15 +32,14 @@ in {
       kb-mode-previous = "Shift+Tab";
       click-to-exit = true;
     };
-    theme = lib.mkForce (builtins.toFile "catppuccin-mocha.rasi" ''
+    theme = lib.mkForce (builtins.toFile "blood-vow.rasi" ''
       * {
-        bg:      #1a0a0d;
-        surface: #2d1018;
-        overlay: #4a1c26;
-        text:    #f0d0d5;
-        subtext: #b89098;
-        accent:  #8B1A2A;
-        red:     #C41E3A;
+        bg:      #171819;
+        surface: #1F2022;
+        overlay: #272A2C;
+        text:    #C8B8BC;
+        subtext: #8C7880;
+        accent:  #5A1010;
 
         background-color: transparent;
         text-color:       @text;
@@ -104,7 +103,7 @@ in {
       }
 
       element selected {
-        background-color: rgba(139, 26, 42, 0.35);
+        background-color: rgba(90, 16, 16, 0.35);
       }
 
       element-icon {

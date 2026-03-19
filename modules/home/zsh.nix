@@ -14,7 +14,6 @@
 
     initContent = ''
       eval "$(zoxide init zsh)"
-      eval "$(atuin init zsh)"
 
       # Alt+Left/Right — word navigation in terminal (keyd passes these through)
       bindkey '\e[1;3D' backward-word
@@ -97,7 +96,7 @@
 
       right_format = "$cmd_duration";
 
-      palette = "kanagawa_dragon";
+      palette = "blood_vow";
 
       os = {
         disabled = false;
@@ -249,33 +248,19 @@
       };
 
 
-      palettes.kanagawa_dragon = {
-        rosewater = "#c4414f";
-        flamingo = "#b5293e";
-        pink = "#c4414f";
-        mauve = "#b5293e";
-        red = "#c4746e";
-        maroon = "#c4746e";
-        peach = "#b98d7b";
-        yellow = "#c4b28a";
-        green = "#8a9a7b";
-        teal = "#949fb5";
-        sky = "#7fb4ca";
-        sapphire = "#8ba4b0";
-        blue = "#7fb4ca";
-        lavender = "#7e9cd8";
-        text = "#c5c9c5";
-        subtext1 = "#a6a39a";
-        subtext0 = "#9e9b93";
-        overlay2 = "#737c73";
-        overlay1 = "#54546d";
-        overlay0 = "#43436c";
-        surface2 = "#2d2b26";
-        surface1 = "#1d1c19";
-        surface0 = "#181616";
-        base = "#181616";
-        mantle = "#12120f";
-        crust = "#0d0c0c";
+      palettes.blood_vow = {
+        red = "#A85070";       # base0E deep rose — first segment, error indicator
+        peach = "#C07840";     # base09 copper — directory
+        yellow = "#C4A35A";    # base0A muted gold — git
+        green = "#7BAABF";     # base0B muted blue — languages
+        sapphire = "#9A7A9C";  # base0D muted purple — docker/conda
+        lavender = "#E8A0B0";  # base0C sakura — time
+        crust = "#171819";     # base00 — dark fg on colored segments
+        text = "#C8B8BC";      # base05
+        subtext1 = "#DCCDD0";  # base06
+        subtext0 = "#8C7880";  # base04
+        overlay2 = "#4E5254";  # base03
+        surface0 = "#171819";  # base00
       };
     };
   };

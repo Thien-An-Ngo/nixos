@@ -31,7 +31,7 @@ Single-host NixOS flake configuration for hostname `nixos` (user: `thienan`, Eur
 - `home-manager`: follows nixpkgs
 - `caelestia-shell`: custom shell/launcher overlay
 - `zen-browser`: Zen Browser package
-- `catppuccin`: Catppuccin theming library
+- `stylix`: stylix theming framework (release-25.05)
 
 ### Module Structure
 
@@ -53,13 +53,14 @@ Single-host NixOS flake configuration for hostname `nixos` (user: `thienan`, Eur
 - `tmux.nix` — tmux, vi-mode, C-a prefix
 - `kitty.nix` — Kitty terminal, JetBrainsMono 14pt
 - `hyprland.nix` — Hyprland keybindings, Hyprlock, Hypridle
-- `theme.nix` — Catppuccin Mocha/Mauve, Papirus icons, GTK/Qt
+- `stylix.nix` — stylix base16 theme config (Blood Vow palette, fonts, disabled targets)
+- `theme.nix` — GTK font, Bibata cursor, Qt/kvantum (stylix owns gtk.theme)
 - `caelestia.nix` — caelestia-shell as systemd user service
 - `zen.nix` — Zen Browser from flake input
 
 ## Key Conventions
 
-- All theming: Catppuccin Mocha flavor, Mauve accent
+- All theming: stylix with Blood Vow base16 palette (`themes/blood-vow.yaml`); mahogany (`#5A1010`) is the primary accent color
 - Wayland-first; Hyprland env vars set in `modules/system/hyprland.nix`
 - Flake inputs passed as `specialArgs` so any module can reference them
 - User password hash: `/etc/nixos/secrets/thienan-password`
@@ -114,10 +115,24 @@ windowrule = [
 ```
 Note: old `noinitialfocus` rule name → `no_initial_focus`. Block syntax (`windowrule { }`) also supported but requires `extraConfig`.
 
-**Catppuccin tmux plugin v2 API**: nixpkgs ships v2.1.3. All v1 options (`@catppuccin_flavour`, `@catppuccin_window_default_text`, `@catppuccin_status_modules_right`) are silently ignored. V2 equivalents: `@catppuccin_flavor`, `@catppuccin_window_text`, and status modules via `status-right = "#{E:@catppuccin_status_session}#{E:@catppuccin_status_date_time}"`. Window style `@catppuccin_window_status_style "slanted"` enables powerline arrows. Status module separators (set in plugin `extraConfig`, must be literal UTF-8 glyphs — use Python to write, not the Edit tool which strips non-ASCII):
-- `@catppuccin_status_left_separator`  U+E0B6 — opening half-moon cap
-- `@catppuccin_status_middle_separator` U+E0B0 — angle between icon and text
-- `@catppuccin_status_right_separator`  U+E0B4 — closing half-moon cap
-- `@catppuccin_status_connect_separator "no"` — each module as independent capsule
+**tmux status bar uses manual colors** (stylix target disabled): Blood Vow hex colors are hardcoded in `tmux.nix` extraConfig. Powerline glyphs (U+E0B0, U+E0B2) are embedded in the status-left/right/current-format strings — edit with Python, not the Edit tool, to preserve non-ASCII.
 
-Double status bar spacer: `set -g status 2` + `set -g status-format[0] ""` (empty top line) + explicit `status-format[1]` set to the full default tmux format string.
+**Stylix home-manager wiring**: `stylix.nixosModules.stylix` alone does NOT inject into home-manager. Must explicitly add to `flake.nix`:
+```nix
+home-manager.sharedModules = [ stylix.homeModules.stylix ];
+```
+Note: `homeManagerModules` was renamed to `homeModules` in release-25.05.
+
+**Stylix conflicts**: Several home-manager options that stylix also manages need `lib.mkForce` or removal to avoid build errors:
+- `qt.platformTheme.name`: use `lib.mkForce "kvantum"` (stylix defaults to "qtct")
+- `qt.style.name`: do NOT set — stylix manages this via generated kvantum theme; overriding triggers unsupported warning
+- `programs.kitty.settings.background_opacity`: use `lib.mkForce "0.78"`
+- `gtk.font`: remove from theme.nix — stylix sets this from `stylix.fonts.sansSerif`
+- `programs.starship.settings.palette`: disable via `stylix.targets.starship.enable = false`
+
+**Stylix wallpaper imagemagick**: Output path has no extension so must specify format explicitly:
+```nix
+convert -size 3840x2160 xc:'#171819' PNG:$out  # NOT: ... $out
+```
+
+**Stylix version mismatch**: Using `release-25.05` with nixos-unstable (26.05) produces a warning. Suppressed with `stylix.enableReleaseChecks = false` in `stylix.nix`.

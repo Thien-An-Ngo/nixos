@@ -2,7 +2,6 @@
 
 {
   imports = [
-    inputs.catppuccin.homeModules.catppuccin
     ./packages.nix
     ./zsh.nix
     ./tmux.nix
@@ -15,6 +14,7 @@
     ./nvim.nix
     ./anyrun.nix
     ./looking-glass.nix
+    ./stylix.nix
   ];
 
   home = {
