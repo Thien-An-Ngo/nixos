@@ -23,7 +23,15 @@
       # Completions for tools not covered by oh-my-zsh plugins
       if command -v k9s &>/dev/null; then source <(k9s completion zsh); fi
       if command -v poetry &>/dev/null; then source <(poetry completions zsh); fi
-      if command -v bun &>/dev/null; then source <(bun completions 2>/dev/null); fi
+      if command -v bun &>/dev/null; then
+        # Lazy-load bun completions to avoid _tags errors at shell startup
+        function _bun() {
+          unfunction _bun
+          eval "$(bun completions 2>/dev/null)"
+          _bun "$@"
+        }
+        compdef _bun bun
+      fi
 
       # Play sound when long commands finish (>45s)
       __cmd_start=0
@@ -57,6 +65,8 @@
   programs.starship = {
     enable = true;
     settings = {
+      scan_timeout = 10000;
+
       format = lib.concatStrings [
         "[](red)"
         "$os"
